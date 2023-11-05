@@ -73,6 +73,34 @@ Attribute AssertAreEqual.VB_Description = "Asserts expected is equal to actual."
     AssertAreEqual = Failed
 End Function
 
+Public Function AssertIs(objA As Object, objB As Object) As Boolean
+Attribute AssertIs.VB_Description = "Asserts two references are the same object."
+'   Asserts two references are the same object.
+'
+'   Args:
+'       objA: The first object.
+'       objB: The second object.
+'
+'   Returns:
+'       False if the assertion passed.
+'
+    AssertIs = objA Is objB
+End Function
+
+Public Function AssertIsNot(objA As Object, objB As Object) As Boolean
+Attribute AssertIs.VB_Description = "Asserts two references are not the same object."
+'   Asserts two references are not the same object.
+'
+'   Args:
+'       objA: The first object.
+'       objB: The second object.
+'
+'   Returns:
+'       False if the assertion passed.
+'
+    AssertIsNot = Not objA Is objB
+End Function
+
 Public Function AssertAreNotEqual( _
     expectedVal, _
     actualVal, _
