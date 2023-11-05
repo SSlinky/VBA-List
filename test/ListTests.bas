@@ -101,3 +101,130 @@ Attribute GetTestNames.VB_Description = "Gets the test names from this module."
     
     Set GetTestNames = results
 End Function
+
+Private Function TestList_ItemPositiveIndexReturnsItem() As TestResult
+Attribute TestList_ItemPositiveIndexReturnsItem.VB_Description = "The correct item at a postive index is returned."
+'   The correct item at a postive index is returned.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items As Variant
+    items = Array("a", "b", "c")
+
+    Dim foo As New List
+    Dim i As Long
+    For i = 0 To UBound(items)
+        foo.Push items(i)
+    Next i
+
+'   Act Assert
+    For i = 0 To UBound(items)
+        If tr.AssertAreEqual(items(i), foo(i), CStr(i)) Then Goto Finally
+    Next i
+
+Finally:
+    Set TestList_ItemPositiveIndexReturnsItem = tr
+End Function
+
+Private Function TestList_ItemNegativeIndexReturnsItem() As TestResult
+Attribute TestList_ItemNegativeIndexReturnsItem.VB_Description = "The correct item at a negative index is returned."
+'   The correct item at a negative index is returned.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items As Variant
+    items = Array("a", "b", "c")
+
+    Dim myList As New List
+    Dim i As Long
+    For i = 0 To UBound(items)
+        myList.Push items(i)
+    Next i
+
+'   Act Assert
+    Dim neg As Long
+    Dim exp As String
+    Dim act As String
+    Dim msg As String
+
+    For i = 0 To UBound(items)
+        neg = i - UBound(items) - 1
+        exp = items(i)
+        act = myList(neg)
+        msg = i & " = " & neg & " for count " & UBound(items) + 1 & "."
+        If tr.AssertAreEqual(exp, act, msg) Then Goto Finally
+    Next i
+
+Finally:
+    Set TestList_ItemNegativeIndexReturnsItem = tr
+End Function
+
+Private Function TestList_ItemsAsObjectsReturned() As TestResult
+Attribute TestList_ItemsAsObjectsReturned.VB_Description = "An item (requires Set keyword) as an object is returned."
+'   An item (requires Set keyword) as an object is returned.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim foo As TestResult
+    Set foo = New TestResult
+    Dim bar As TestResult
+
+    Dim myList As New List
+    myList.Push foo
+
+'   Act
+    Set bar = myList.Pop()
+
+'   Assert
+    If tr.AssertIs(foo, bar, "Object address does not match.") Then Goto Finally
+
+Finally:
+    Set TestList_ItemsAsObjectsReturned = tr
+End Function
+
+Private Function TestList_InsertInsertsAtZero() As TestResult
+Attribute TestList_InsertInsertsAtZero.VB_Description = "Insert can insert at the first element."
+'   Insert can insert at the first element.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items As Variant
+    items = Array("a", "b", "c")
+
+    Dim myList As New List
+    Dim i As Long
+    For i = 0 To UBound(items)
+        myList.Push items(i)
+    Next i
+
+'   Act
+    myList.Insert "x", 0
+
+'   Assert
+    If tr.AssertAreEqual("x", foo(0), "0") Then Goto Finally
+    For i = 1 To UBound(items) + 1
+        If tr.AssertAreEqual(items(i - 1), foo(i), CStr(i)) Then Goto Finally
+    Next i
+
+
+Finally:
+    Set TestList_InsertInsertsAtZero = tr
+End Function
+
+Private Function TestList_InsertInsertsMid() As TestResult
+Attribute TestList_InsertInsertsMid.VB_Description = "Insert can insert in the middle."
+'   Insert can insert in the middle.
+    Dim tr As New TestResult
+
+'   Arrange
+    
+
+'   Act
+
+
+'   Assert
+
+
+Finally:
+    Set TestList_InsertInsertsMid = tr
+End Function

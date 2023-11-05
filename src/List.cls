@@ -31,7 +31,7 @@ Option Explicit
 
 '-------------------------------------------------------------------------------
 '   Class: List
-'   A wrapper for a Collection that extends functionality
+'   A wrapper for a Collection that gives it features of a list or stack.
 '-------------------------------------------------------------------------------
 
 ' Enums
@@ -44,6 +44,7 @@ Option Explicit
 
 ' Private Backing Store
 '-------------------------------------------------------------------------------
+Private mBaseCollection As Collection
 
 
 ' Properties
@@ -52,14 +53,102 @@ Option Explicit
 
 ' Constructor
 '-------------------------------------------------------------------------------
+Private Sub Class_Initialize()
+    Set mBaseCollection = New Collection
+End Sub
 
 
 ' Methods
 '-------------------------------------------------------------------------------
+Public Function Item(Optional itemIndex As Long) As Variant
+Attribute Item.VB_UserMemId = 0
+Attribute Item.VB_Description = "Returns the item at the position."
+'   Returns the item at the position.
+'
+'   Args:
+'       itemIndex: A zero based item index. Negative index returns from end.
+'
+'   Returns:
+'       The item at the position
+'
+    Dim i As Long
+    i = GetRealIndex(itemIndex)
+    
+    If IsObject(mBaseCollection(i)) Then
+        Set Item = mBaseCollection(i)
+    Else
+        Item = mBaseCollection(i)
+    End If
+End Function
+
+Public Sub Push(Item As Variant)
+Attribute Push.VB_Description = "Adds an item to the list."
+'   Adds an item to the list.
+'
+'   Args:
+'       Item: An expression of any type that specifies the itemm to be added.
+'
+    mBaseCollection.Add Item
+End Sub
+
+Public Function Pop() As Variant
+Attribute Pop.VB_Description = "Pops the item at the end of the list."
+'   Pops the item at the end of the list.
+'
+'   Returns:
+'       An item from the list.
+'
+'   Raises:
+'       An error when there are no more items to pop.
+'
+    Dim lastIndex As Long
+    lastIndex = mBaseCollection.Count
+
+    If IsObject(mBaseCollection(lastIndex)) Then
+        Set Pop = mBaseCollection(lastIndex)
+    Else
+        Pop = mBaseCollection(lastIndex)
+    End If
+    mBaseCollection.Remove(lastIndex)
+End Function
+
+Public Sub Insert(Item As Variant, itemIndex As Long)
+Attribute Insert.VB_Description = "Inserts an item at the specified index location."
+'   Inserts an item at the specified index location.
+'
+'   Args:
+'       Item: An expression of any type that specifies the itemm to be added.
+'       itemIndex: A zero based item index. Negative index returns from end.
+'
+    Dim i As Long
+    i = GetRealIndex(itemIndex)
+
+    If mBaseCollection.Count = 0 Or i > mBaseCollection.Count Then
+        Push Item
+    Else
+        mBaseCollection.Add Item, Before:=i
+    End If
+End Sub
 
 
 ' Helpers
 '-------------------------------------------------------------------------------
+Private Function GetRealIndex(itemIndex) As Long
+Attribute GetRealIndex.VB_Description = "Returns the converted item index appropriate for the base collection."
+'   Returns the converted item index appropriate for the base collection.
+'
+'   Args:
+'       itemIndex: A zero based item index. Negative index returns from end.
+'
+'   Returns:
+'       The item index, offset for the base collection.
+'
+    If itemIndex < 0 Then
+        GetRealIndex = mBaseCollection.Count + itemIndex + 1
+    Else
+        GetRealIndex = itemIndex + 1
+    End If
+End Function
 
 
 ' Event Handlers
