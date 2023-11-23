@@ -48,8 +48,32 @@ Attribute ToString.VB_Description = "Returns a string representation of the clas
     ToString = Iif(Failed, "!! Fail: ", "   Pass: ") & Name & msg
 End Property
 
+' Constructor
+'-------------------------------------------------------------------------------
+Private Sub Class_Initialize()
+    Randomize
+End Sub
+
 
 ' Methods
+'-------------------------------------------------------------------------------
+Public Function GetRandomBetween(a As Long, b As Long) As Long
+Attribute GetRandomBetween.VB_Description = "Returns a random number between two numbers."
+'   Returns a random number between two numbers.
+'
+'   Args:
+'       a: The low boundary number.
+'       b: The high boundary number.
+'
+'   Returns:
+'       A random number between a and b.
+'
+    GetRandomBetween = (a + Rnd * (b - a + 1)) - 0.5
+    
+End Function
+
+
+' Assert Methods
 '-------------------------------------------------------------------------------
 Public Function AssertAreEqual( _
     expectedVal, _
