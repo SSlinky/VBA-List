@@ -147,6 +147,36 @@ Attribute Insert.VB_Description = "Inserts an item at the specified index locati
     End If
 End Sub
 
+Public Function IndexOf(var As Variant) As Long
+Attribute IndexOf.VB_Description = "Returns the index of the passed in item if it exists."
+'   Returns the index of the passed in item if it exists.
+'
+'   Args:
+'       var: The item to find the index of.
+'
+'   Returns:
+'       A positive number if the item is found or negative 1 if not.
+'
+    Dim i As Long
+    If IsObject(var) Then
+'       Search for the object comparing memory address
+        For i = 1 To mBaseCollection.Count
+            If var Is mBaseCollection(i) Then
+                IndexOf = i - 1
+                Exit Function
+            End If
+        Next i
+    Else
+'       Search for the object comparing the value
+        For i = 1 To mBaseCollection.Count
+            If var = mBaseCollection(i) Then
+                IndexOf = i - 1
+                Exit Function
+            End If
+        Next i
+    End If
+End Function
+
 
 ' Helpers
 '-------------------------------------------------------------------------------
