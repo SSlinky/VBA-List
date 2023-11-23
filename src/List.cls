@@ -41,7 +41,7 @@ Public Enum ListMode
     Stack
 
 '   First in, first out.
-    Pipe
+    Queue
 End Enum
 
 
@@ -119,7 +119,7 @@ Attribute Pop.VB_Description = "Pops the item from the list."
 '       An error when there are no more items to pop.
 '
     Dim popIndex As Long
-    popIndex = Iif(mMode = Pipe, 0, mBaseCollection.Count)
+    popIndex = Iif(mMode = Queue, 0, mBaseCollection.Count)
 
     If IsObject(mBaseCollection(popIndex)) Then
         Set Pop = mBaseCollection(popIndex)
