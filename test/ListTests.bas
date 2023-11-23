@@ -244,3 +244,36 @@ Attribute TestList_InsertInsertsMid.VB_Description = "Insert can insert in the m
 Finally:
     Set TestList_InsertInsertsMid = tr
 End Function
+
+Private Function TestList_RemoveRemovesItem() As TestResult
+Attribute TestList_RemoveRemovesItem.VB_Description = "Remove can remove an item."
+'   Remove can remove an item.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items As Variant
+    items = Array("a", "b", "c")
+
+    Dim myList As New List
+    Dim i As Long
+    For i = 0 To UBound(items)
+        myList.Push items(i)
+    Next i
+
+    Const REMOVEDLOC As Long = 1
+
+'   Act
+    myList.Remove REMOVEDLOC
+
+'   Assert
+    For i = 0 To UBound(items)
+        If i = REMOVEDLOC Then i = i + 1
+
+        Dim j As Long
+        j = Iif(i < REMOVEDLOC, i, i - 1)
+        If tr.AssertAreEqual(items(i), myList(j)) Then GoTo Finally
+    Next i
+
+Finally:
+    Set TestList_RemoveRemovesItem = tr
+End Function
