@@ -109,11 +109,11 @@ Attribute Push.VB_Description = "Adds an item to the list."
 End Sub
 
 Public Function Pop() As Variant
-Attribute Pop.VB_Description = "Pops the item at the end of the list."
-'   Pops the item at the end of the list.
+Attribute Pop.VB_Description = "Pops the item from the list."
+'   Pops the item from the list.
 '
 '   Returns:
-'       An item from the list.
+'       An item from the list (affected by Mode).
 '
 '   Raises:
 '       An error when there are no more items to pop.
