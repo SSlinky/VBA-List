@@ -277,3 +277,37 @@ Attribute TestList_RemoveRemovesItem.VB_Description = "Remove can remove an item
 Finally:
     Set TestList_RemoveRemovesItem = tr
 End Function
+
+Private Function TestList_IndexOfReturnsValueIndex() As TestResult
+Attribute TestList_IndexOfReturnsValueIndex.VB_Description = "IndexOf finds the index when passed a value."
+'   IndexOf finds the index when passed a value.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items As Object
+    Set items = CreateObject("Scripting.Dictionary")
+    Dim myList As New List
+
+'   Act
+'   Add random unique characters to the list. Track items added
+'   with a dictionary so we know their position and that they are unique.
+    Dim i As Long, j As Long
+    For i = 0 To 100
+        Dim randChar As String * 1
+        randChar = Chr(tr.GetRandomBetween(65, 122))
+        If Not items.Exists(randChar) Then
+            items.Add randChar, j
+            myList.Push randChar
+            j = j + 1
+        End If
+    Next i
+
+'   Assert
+    Dim key As Variant
+    For Each key In items
+        If tr.AssertAreEqual(items(key), myList.IndexOf(key)) Then GoTo Finally
+    Next key
+
+Finally:
+    Set TestList_IndexOfReturnsValueIndex = tr
+End Function
