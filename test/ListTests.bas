@@ -311,3 +311,48 @@ Attribute TestList_IndexOfReturnsValueIndex.VB_Description = "IndexOf finds the 
 Finally:
     Set TestList_IndexOfReturnsValueIndex = tr
 End Function
+
+Private Function TestList_IndexOfDoesntFindValueIndex() As TestResult
+Attribute TestList_IndexOfDoesntFindValueIndex.VB_Description = "IndexOf returns -1 if the value doesn't exist."
+'   IndexOf returns -1 if the value doesn't exist.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items As Variant
+    items = Array("a", "b", "c")
+
+    Dim myList As New List
+    Dim i As Long
+    For i = 0 To UBound(items)
+        myList.Push items(i)
+    Next i
+
+'   Act
+    Dim result As Long
+    result = myList.IndexOf("x")
+
+'   Assert
+    tr.AssertAreEqual(result, -1)
+
+Finally:
+    Set TestList_RemoveRemovesItem = tr
+End Function
+
+Private Function TestList_IndexOfDoesntFindValueNoItems() As TestResult
+Attribute TestList_IndexOfDoesntFindValueNoItems.VB_Description = "IndexOf returns -1 when there are no items."
+'   IndexOf returns -1 when there are no items.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim myList As New List
+
+'   Act
+    Dim result As Long
+    result = myList.IndexOf("x")
+
+'   Assert
+    tr.AssertAreEqual(result, -1)
+
+Finally:
+    Set TestList_RemoveRemovesItem = tr
+End Function
