@@ -49,7 +49,7 @@ End Sub
 
 Sub RunSingle()
     Dim tr As TestResult
-    Set tr = TestDictionary_ItemReturnsItem()
+    Set tr = TestList_IndexOfReturnsValueIndex()
     Debug.Print tr.ToString
 End Sub
 
@@ -176,7 +176,7 @@ Attribute TestList_ItemsAsObjectsReturned.VB_Description = "An item (requires Se
     Set bar = myList.Pop()
 
 '   Assert
-    If tr.AssertIs(foo, bar, "Object address does not match.") Then GoTo Finally
+    If tr.AssertIs(foo, bar, "foo and bar") Then GoTo Finally
 
 Finally:
     Set TestList_ItemsAsObjectsReturned = tr
@@ -201,9 +201,9 @@ Attribute TestList_InsertInsertsAtZero.VB_Description = "Insert can insert at th
     myList.Insert "x", 0
 
 '   Assert
-    If tr.AssertAreEqual("x", foo(0), "0") Then Goto Finally
+    If tr.AssertAreEqual("x", myList(0), "0") Then Goto Finally
     For i = 1 To UBound(items) + 1
-        If tr.AssertAreEqual(items(i - 1), foo(i), CStr(i)) Then GoTo Finally
+        If tr.AssertAreEqual(items(i - 1), myList(i), CStr(i)) Then GoTo Finally
     Next i
 
 
@@ -239,7 +239,7 @@ Attribute TestList_InsertInsertsMid.VB_Description = "Insert can insert in the m
         If tr.AssertAreEqual(items(i), myList(j)) Then GoTo Finally
     Next i
 
-    tr.AssertAreEqual(INSERTEDVAL, myList(INSERTEDLOC))
+    tr.AssertAreEqual INSERTEDVAL, myList(INSERTEDLOC)
 
 Finally:
     Set TestList_InsertInsertsMid = tr
@@ -332,10 +332,10 @@ Attribute TestList_IndexOfDoesntFindValueIndex.VB_Description = "IndexOf returns
     result = myList.IndexOf("x")
 
 '   Assert
-    tr.AssertAreEqual(result, -1)
+    tr.AssertAreEqual result, -1
 
 Finally:
-    Set TestList_RemoveRemovesItem = tr
+    Set TestList_IndexOfDoesntFindValueIndex = tr
 End Function
 
 Private Function TestList_IndexOfDoesntFindValueNoItems() As TestResult
@@ -351,10 +351,10 @@ Attribute TestList_IndexOfDoesntFindValueNoItems.VB_Description = "IndexOf retur
     result = myList.IndexOf("x")
 
 '   Assert
-    tr.AssertAreEqual(result, -1)
+    tr.AssertAreEqual result, -1
 
 Finally:
-    Set TestList_RemoveRemovesItem = tr
+    Set TestList_IndexOfDoesntFindValueNoItems = tr
 End Function
 
 Private Function TestList_IndexOfReturnsObjectIndex() As TestResult

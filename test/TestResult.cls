@@ -97,7 +97,7 @@ Attribute AssertAreEqual.VB_Description = "Asserts expected is equal to actual."
     AssertAreEqual = Failed
 End Function
 
-Public Function AssertIs(objA As Object, objB As Object) As Boolean
+Public Function AssertIs(objA As Object, objB As Object, ctx As String) As Boolean
 Attribute AssertIs.VB_Description = "Asserts two references are the same object."
 '   Asserts two references are the same object.
 '
@@ -108,10 +108,14 @@ Attribute AssertIs.VB_Description = "Asserts two references are the same object.
 '   Returns:
 '       False if the assertion passed.
 '
-    AssertIs = objA Is objB
+    If Not objA Is objB Then
+        Failed = True
+        Message = "Object References do not match for " & ctx & "."
+    End If
+    AssertIs = Failed
 End Function
 
-Public Function AssertIsNot(objA As Object, objB As Object) As Boolean
+Public Function AssertIsNot(objA As Object, objB As Object, ctx As String) As Boolean
 Attribute AssertIs.VB_Description = "Asserts two references are not the same object."
 '   Asserts two references are not the same object.
 '
@@ -122,7 +126,11 @@ Attribute AssertIs.VB_Description = "Asserts two references are not the same obj
 '   Returns:
 '       False if the assertion passed.
 '
-    AssertIsNot = Not objA Is objB
+    If objA Is objB Then
+        Failed = True
+        Message = "Object References do not match for " & ctx & "."
+    End If
+    AssertIsNot = Failed
 End Function
 
 Public Function AssertAreNotEqual( _
