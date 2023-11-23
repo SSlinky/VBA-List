@@ -119,7 +119,7 @@ Attribute TestList_ItemPositiveIndexReturnsItem.VB_Description = "The correct it
 
 '   Act Assert
     For i = 0 To UBound(items)
-        If tr.AssertAreEqual(items(i), foo(i), CStr(i)) Then Goto Finally
+        If tr.AssertAreEqual(items(i), foo(i), CStr(i)) Then GoTo Finally
     Next i
 
 Finally:
@@ -152,7 +152,7 @@ Attribute TestList_ItemNegativeIndexReturnsItem.VB_Description = "The correct it
         exp = items(i)
         act = myList(neg)
         msg = i & " = " & neg & " for count " & UBound(items) + 1 & "."
-        If tr.AssertAreEqual(exp, act, msg) Then Goto Finally
+        If tr.AssertAreEqual(exp, act, msg) Then GoTo Finally
     Next i
 
 Finally:
@@ -176,7 +176,7 @@ Attribute TestList_ItemsAsObjectsReturned.VB_Description = "An item (requires Se
     Set bar = myList.Pop()
 
 '   Assert
-    If tr.AssertIs(foo, bar, "Object address does not match.") Then Goto Finally
+    If tr.AssertIs(foo, bar, "Object address does not match.") Then GoTo Finally
 
 Finally:
     Set TestList_ItemsAsObjectsReturned = tr
@@ -203,7 +203,7 @@ Attribute TestList_InsertInsertsAtZero.VB_Description = "Insert can insert at th
 '   Assert
     If tr.AssertAreEqual("x", foo(0), "0") Then Goto Finally
     For i = 1 To UBound(items) + 1
-        If tr.AssertAreEqual(items(i - 1), foo(i), CStr(i)) Then Goto Finally
+        If tr.AssertAreEqual(items(i - 1), foo(i), CStr(i)) Then GoTo Finally
     Next i
 
 
