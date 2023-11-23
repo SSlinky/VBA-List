@@ -134,7 +134,7 @@ Attribute Insert.VB_Description = "Inserts an item at the specified index locati
 '   Inserts an item at the specified index location.
 '
 '   Args:
-'       Item: An expression of any type that specifies the itemm to be added.
+'       Item: An expression of any type that specifies the item to be added.
 '       itemIndex: A zero based item index. Negative index returns from end.
 '
     Dim i As Long
