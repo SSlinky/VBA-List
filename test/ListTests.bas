@@ -356,3 +356,43 @@ Attribute TestList_IndexOfDoesntFindValueNoItems.VB_Description = "IndexOf retur
 Finally:
     Set TestList_RemoveRemovesItem = tr
 End Function
+
+Private Function TestList_IndexOfReturnsObjectIndex() As TestResult
+Attribute TestList_IndexOfReturnsObjectIndex.VB_Description = "IndexOf finds the index when passed an object."
+'   IndexOf finds the index when passed an object.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items As Object: Set items = CreateObject("Scripting.Dictionary")
+    Dim indices As Object: Set indices = CreateObject("Scripting.Dictionary")
+    
+    Dim myList As New List
+
+'   Act
+'   Add random unique characters to the list. Track items added and indices
+'   with a dictionary so we know their position and that they are unique.
+    Dim i As Long, j As Long
+    For i = 0 To 100
+        Dim randChar As String * 1
+        Dim obj As Collection
+        randChar = Chr(tr.GetRandomBetween(65, 122))
+        If Not items.Exists(randChar) Then
+            Set obj = New Collection
+            items.Add randChar, obj
+            indices.Add randChar, j
+            myList.Push obj
+            j = j + 1
+        End If
+    Next i
+
+'   Assert
+    Dim key As Variant
+    For Each key In items
+        Dim result As Long
+        result = myList.IndexOf(items(key))
+        If tr.AssertAreEqual(indices(key), result) Then GoTo Finally
+    Next key
+
+Finally:
+    Set TestList_IndexOfReturnsObjectIndex = tr
+End Function
