@@ -170,6 +170,10 @@ Attribute IndexOf.VB_Description = "Returns the index of the passed in item if i
 '   Returns:
 '       A positive number if the item is found or negative 1 if not.
 '
+'   Set the default state and return if we have no items.
+    IndexOf = -1
+    If mBaseCollection.Count = 0 Then Exit Function
+
     Dim i As Long
     If IsObject(var) Then
 '       Search for the object comparing memory address
