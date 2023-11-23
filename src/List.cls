@@ -147,6 +147,19 @@ Attribute Insert.VB_Description = "Inserts an item at the specified index locati
     End If
 End Sub
 
+Public Sub Remove(itemIndex As Long)
+Attribute Remove.VB_Description = "Removes the item at the passed index location."
+'   Removes the item at the passed index location.
+'
+'   Args:
+'       itemIndex: A zero based item index. Negative index removes from end.
+'
+    Dim i As Long
+    i = GetRealIndex(itemIndex)
+
+    mBaseCollection.Remove i
+End Sub
+
 Public Function IndexOf(var As Variant) As Long
 Attribute IndexOf.VB_Description = "Returns the index of the passed in item if it exists."
 '   Returns the index of the passed in item if it exists.
