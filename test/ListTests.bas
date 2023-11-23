@@ -217,13 +217,29 @@ Attribute TestList_InsertInsertsMid.VB_Description = "Insert can insert in the m
     Dim tr As New TestResult
 
 '   Arrange
-    
+    Dim items As Variant
+    items = Array("a", "b", "c")
+
+    Dim myList As New List
+    Dim i As Long
+    For i = 0 To UBound(items)
+        myList.Push items(i)
+    Next i
+
+    Const INSERTEDVAL As String = "xxx"
+    Const INSERTEDLOC As Long = 1
 
 '   Act
-
+    myList.Insert INSERTEDVAL, INSERTEDLOC
 
 '   Assert
+    For i = 0 To UBound(items)
+        Dim j As Long
+        j = Iif(i < INSERTEDLOC, i, i + 1)
+        If tr.AssertAreEqual(items(i), myList(j)) Then GoTo Finally
+    Next i
 
+    tr.AssertAreEqual(INSERTEDVAL, myList(INSERTEDLOC))
 
 Finally:
     Set TestList_InsertInsertsMid = tr
