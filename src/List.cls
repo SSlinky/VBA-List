@@ -36,6 +36,13 @@ Option Explicit
 
 ' Enums
 '-------------------------------------------------------------------------------
+Public Enum ListMode
+'   Last in, first out.
+    Stack
+
+'   First in, first out.
+    Pipe
+End Enum
 
 
 ' Events
@@ -45,10 +52,20 @@ Option Explicit
 ' Private Backing Store
 '-------------------------------------------------------------------------------
 Private mBaseCollection As Collection
+Private mMode As ListMode
 
 
 ' Properties
 '-------------------------------------------------------------------------------
+Public Property Let Mode(var As ListMode)
+Attribute Mode.VB_Description = "The mode affects the way the Pop function works."
+'   The mode affects the way the Pop function works.
+    mMode = var
+End Property
+
+Public Property Get Mode() As ListMode
+    Mode = mMode
+End Property
 
 
 ' Constructor
@@ -101,15 +118,15 @@ Attribute Pop.VB_Description = "Pops the item at the end of the list."
 '   Raises:
 '       An error when there are no more items to pop.
 '
-    Dim lastIndex As Long
-    lastIndex = mBaseCollection.Count
+    Dim popIndex As Long
+    popIndex = Iif(mMode = Pipe, 0, mBaseCollection.Count)
 
-    If IsObject(mBaseCollection(lastIndex)) Then
-        Set Pop = mBaseCollection(lastIndex)
+    If IsObject(mBaseCollection(popIndex)) Then
+        Set Pop = mBaseCollection(popIndex)
     Else
-        Pop = mBaseCollection(lastIndex)
+        Pop = mBaseCollection(popIndex)
     End If
-    mBaseCollection.Remove(lastIndex)
+    mBaseCollection.Remove(popIndex)
 End Function
 
 Public Sub Insert(Item As Variant, itemIndex As Long)
