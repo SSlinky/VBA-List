@@ -396,3 +396,90 @@ Attribute TestList_IndexOfReturnsObjectIndex.VB_Description = "IndexOf finds the
 Finally:
     Set TestList_IndexOfReturnsObjectIndex = tr
 End Function
+
+Private Function TestList_PushAddsItem() As TestResult
+Attribute TestList_PushAddsItem.VB_Description = "Push adds an item to the list."
+'   Push adds an item to the list.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items() As Variant
+    items = Array(1, 2, 3)
+
+    Dim myList As New List
+
+'   Act
+    Dim val As Variant
+    For Each val In items
+        myList.Push val
+    Next val
+
+'   Assert
+    For Each val In items
+        If tr.AssertAreNotEqual(myList.IndexOf(val), -1) Then GoTo Finally
+    Next val
+
+
+Finally:
+    Set TestList_PushAddsItem = tr
+End Function
+
+Private Function TestList_PopGetsAndRemovesFromQueue() As TestResult
+Attribute TestList_PopGetsAndRemovesFromQueue.VB_Description = "Pop gets the first-in item from the queue."
+'   Pop gets the first-in item from the queue.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items() As Variant
+    items = Array(1, 2, 3)
+
+    Dim myList As New List
+    myList.Mode = Queue
+    
+    Dim val As Variant
+    For Each val In items
+        myList.Push val
+    Next val
+
+'   Act / Assert
+    Dim i As Long
+    For i = LBound(items) To UBound(items)
+        Dim res As Variant
+        res = myList.Pop()
+        If tr.AssertAreEqual(res, items(i), "value") Then GoTo Finally
+        If tr.AssertAreEqual(myList.Count, UBound(items) - i, "count") Then GoTo Finally
+    Next i
+
+Finally:
+    Set TestList_PopGetsAndRemovesFromQueue = tr
+End Function
+
+Private Function TestList_PopGetsAndRemovesFromStack() As TestResult
+Attribute TestList_PopGetsAndRemovesFromStack.VB_Description = "Pop gets the last-in item from the stack."
+'   Pop gets the last-in item from the stack.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items() As Variant
+    items = Array(1, 2, 3)
+
+    Dim myList As New List
+    myList.Mode = Stack
+
+    Dim val As Variant
+    For Each val In items
+        myList.Push val
+    Next val
+
+'   Act / Assert
+    Dim i As Long
+    For i = UBound(items) To LBound(items) Step -1
+        Dim res As Variant
+        res = myList.Pop()
+        If tr.AssertAreEqual(res, items(i), "value") Then GoTo Finally
+        If tr.AssertAreEqual(myList.Count, i, "count") Then GoTo Finally
+    Next i
+
+Finally:
+    Set TestList_PopGetsAndRemovesFromStack = tr
+End Function
