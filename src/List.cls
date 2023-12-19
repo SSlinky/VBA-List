@@ -57,10 +57,10 @@ Private mMode As ListMode
 
 ' Properties
 '-------------------------------------------------------------------------------
-Public Property Let Mode(var As ListMode)
+Public Property Let Mode(val As ListMode)
 Attribute Mode.VB_Description = "The mode affects the way the Pop function works."
 '   The mode affects the way the Pop function works.
-    mMode = var
+    mMode = val
 End Property
 
 Public Property Get Mode() As ListMode
@@ -104,14 +104,14 @@ Attribute Item.VB_Description = "Returns the item at the position."
     End If
 End Function
 
-Public Sub Push(Item As Variant)
+Public Sub Push(val As Variant)
 Attribute Push.VB_Description = "Adds an item to the list."
 '   Adds an item to the list.
 '
 '   Args:
-'       Item: An expression of any type that specifies the itemm to be added.
+'       val: An expression of any type that specifies the itemm to be added.
 '
-    mBaseCollection.Add Item
+    mBaseCollection.Add val
 End Sub
 
 Public Function Pop() As Variant
@@ -135,21 +135,21 @@ Attribute Pop.VB_Description = "Pops the item from the list."
     mBaseCollection.Remove(popIndex)
 End Function
 
-Public Sub Insert(Item As Variant, itemIndex As Long)
+Public Sub Insert(val As Variant, itemIndex As Long)
 Attribute Insert.VB_Description = "Inserts an item at the specified index location."
 '   Inserts an item at the specified index location.
 '
 '   Args:
-'       Item: An expression of any type that specifies the item to be added.
+'       val: An expression of any type that specifies the item to be added.
 '       itemIndex: A zero based item index. Negative index returns from end.
 '
     Dim i As Long
     i = GetRealIndex(itemIndex)
 
     If mBaseCollection.Count = 0 Or i > mBaseCollection.Count Then
-        Push Item
+        Push val
     Else
-        mBaseCollection.Add Item, Before:=i
+        mBaseCollection.Add val, Before:=i
     End If
 End Sub
 
@@ -166,12 +166,12 @@ Attribute Remove.VB_Description = "Removes the item at the passed index location
     mBaseCollection.Remove i
 End Sub
 
-Public Function IndexOf(var As Variant) As Long
+Public Function IndexOf(val As Variant) As Long
 Attribute IndexOf.VB_Description = "Returns the index of the passed in item if it exists."
 '   Returns the index of the passed in item if it exists.
 '
 '   Args:
-'       var: The item to find the index of.
+'       val: The item to find the index of.
 '
 '   Returns:
 '       A positive number if the item is found or negative 1 if not.
@@ -181,10 +181,10 @@ Attribute IndexOf.VB_Description = "Returns the index of the passed in item if i
     If mBaseCollection.Count = 0 Then Exit Function
 
     Dim i As Long
-    If IsObject(var) Then
+    If IsObject(val) Then
 '       Search for the object comparing memory address
         For i = 1 To mBaseCollection.Count
-            If var Is mBaseCollection(i) Then
+            If val Is mBaseCollection(i) Then
                 IndexOf = i - 1
                 Exit Function
             End If
@@ -192,7 +192,7 @@ Attribute IndexOf.VB_Description = "Returns the index of the passed in item if i
     Else
 '       Search for the object comparing the value
         For i = 1 To mBaseCollection.Count
-            If var = mBaseCollection(i) Then
+            If val = mBaseCollection(i) Then
                 IndexOf = i - 1
                 Exit Function
             End If
