@@ -67,6 +67,12 @@ Public Property Get Mode() As ListMode
     Mode = mMode
 End Property
 
+Public Property Get Count() As Long
+Attribute Count.VB_Description = "Gets the count for the collection."
+'   Gets the count for the collection.
+    Count = mBaseCollection.Count
+End Property
+
 
 ' Constructor
 '-------------------------------------------------------------------------------
@@ -119,7 +125,7 @@ Attribute Pop.VB_Description = "Pops the item from the list."
 '       An error when there are no more items to pop.
 '
     Dim popIndex As Long
-    popIndex = Iif(mMode = Queue, 0, mBaseCollection.Count)
+    popIndex = Iif(mMode = Queue, 1, mBaseCollection.Count)
 
     If IsObject(mBaseCollection(popIndex)) Then
         Set Pop = mBaseCollection(popIndex)
