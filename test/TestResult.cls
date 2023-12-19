@@ -57,9 +57,10 @@ End Sub
 
 ' Methods
 '-------------------------------------------------------------------------------
-Public Function GetRandomBetween(a As Long, b As Long) As Long
+Public Function GetRandomBetween(a As Long, b As Long) As Integer
 Attribute GetRandomBetween.VB_Description = "Returns a random number between two numbers."
 '   Returns a random number between two numbers.
+'   The return type is Integer so not to cause confusing overflow exceptions.
 '
 '   Args:
 '       a: The low boundary number.
@@ -68,7 +69,7 @@ Attribute GetRandomBetween.VB_Description = "Returns a random number between two
 '   Returns:
 '       A random number between a and b.
 '
-    GetRandomBetween = (a + Rnd * (b - a + 1)) - 0.5
+    GetRandomBetween = Int((b - a + 1) * Rnd + a)
     
 End Function
 
