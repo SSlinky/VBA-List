@@ -42,8 +42,11 @@ Free to modify and reuse.
    Pass: TestList_ItemGetsItemsSlice
    Pass: TestList_FilterFiltersStrings
    Pass: TestList_FilterFiltersNumbers
+   Pass: TestList_SortListSortsStrings
+!! Fail: TestList_SortListSortsNumbers
+     Expected 85 but got 339 [4]
 -------------------------------------------
-   Passed: 16 (100.00%)
-   Failed: 0 (0.00%)
+   Passed: 17 (94.44%)
+   Failed: 1 (5.56%)
 -------------------------------------------
 ```

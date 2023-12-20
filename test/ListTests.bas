@@ -585,3 +585,69 @@ Attribute TestList_FilterFiltersNumbers.VB_Description = "Test the filter functi
 Finally:
     Set TestList_FilterFiltersNumbers = tr
 End Function
+
+Private Function TestList_SortListSortsStrings() As TestResult
+Attribute TestList_SortListSortsStrings.VB_Description = "Test the sort function."
+'   Test the sort function.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items() As Variant
+    items = Array("300", "35", "85", "339", "209")
+
+    Dim exp() As Variant
+    exp = Array("209", "300", "339", "35", "85")
+
+    Dim myList As New List
+    myList.Mode = Stack
+
+    Dim val As Variant
+    For Each val In items
+        myList.Push val
+    Next val
+
+'   Act
+    myList.Sort "Value ASC"
+
+'   Assert
+    Dim i As Long
+    For i = 0 To UBound(items)
+        If Not tr.AssertAreEqual(myList(i), exp(i), CStr(i)) Then GoTo Finally
+    Next i
+
+Finally:
+    Set TestList_SortListSortsStrings = tr
+End Function
+
+Private Function TestList_SortListSortsNumbers() As TestResult
+Attribute TestList_SortListSortsNumbers.VB_Description = "Test the sort function."
+'   Test the sort function.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items() As Variant
+    items = Array(300, 35, 85, 339, 209)
+
+    Dim exp() As Variant
+    exp = Array(35, 85, 209, 300, 339)
+
+    Dim myList As New List
+    myList.Mode = Stack
+
+    Dim val As Variant
+    For Each val In items
+        myList.Push val
+    Next val
+
+'   Act
+    myList.Sort "Value ASC"
+
+'   Assert
+    Dim i As Long
+    For i = 0 To UBound(items)
+        If Not tr.AssertAreEqual(myList(i), exp(i), CStr(i)) Then GoTo Finally
+    Next i
+
+Finally:
+    Set TestList_SortListSortsNumbers = tr
+End Function

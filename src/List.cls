@@ -223,33 +223,10 @@ Attribute Filter.VB_Description = "Returns a new filtered list."
 '   Returns:
 '       A List with the objects filtered.
 '
-'   Set up the ADODB in-memory Recordset.
-    Const adInteger As Long = 3
-    Const adVarChar As Long = 200
-    Const adLockPessimistic As Long = 2
-
     Dim rs As Object
-    Set rs = CreateObject("ADODB.Recordset")
-
-    rs.Fields.Append "ID", adInteger
-    rs.Fields.Append "Value", adVarChar, 255
-    rs.LockType = adLockPessimistic
-    rs.Open
-
-'   Add the List items to the recordset and filter it.
-    Dim val As Variant
-    Dim i As Long
-    For Each val In mBaseCollection
-        i = i + 1
-        rs.AddNew
-        rs!ID.Value = i
-        rs!Value.Value = val
-        rs.Update
-    Next val
-
+    Set rs = ToRecordSet(mBaseCollection)
     rs.Filter = filterCriteria
 
-'   Add the filter results to the new collection
     Dim result As New List
     result.Mode = Me.Mode
 
@@ -260,6 +237,31 @@ Attribute Filter.VB_Description = "Returns a new filtered list."
 
     Set Filter = result
 End Function
+
+Public Sub Sort(sortCriteria As String)
+Attribute Sort.VB_Description = "Sorts the list in place."
+'   Sorts the list in place.
+'
+'   Sorts the list in the same way that an ADODB.Recordset does.
+'   This sort does not support complex objects due to limited
+'   reflection in VBA. Objects should be implemented separately
+'   so that their properties can be added to the Recordset.
+'
+'   Args:
+'       sortCriteria: The ADODB filter string.
+'       Sort on field Value, e.g., "Value ASC"
+'
+    Dim rs As Object
+    Set rs = ToRecordSet(mBaseCollection)
+    rs.Sort = sortCriteria
+
+    Set mBaseCollection = New Collection
+
+    Do While Not rs.EOF
+        Me.Push rs.Fields!Value.Value
+        rs.MoveNext
+    Loop
+End Sub
 
 
 ' Helpers
@@ -314,6 +316,43 @@ Attribute GetItemsBySlice.VB_Description = "Returns the items at the slice."
     Next i
 
     Set GetItemsBySlice = result
+End Function
+
+Private Function ToRecordSet(coll As Collection) As Object
+Attribute ToRecordSet.VB_Description = "Converts the base Collection to a Recordset."
+'   Converts the base Collection to a Recordset.
+'
+'   Args:
+'       coll: The Collection to convert.
+'
+'   Returns:
+'       A Recordset.
+'
+'   Set up the ADODB in-memory Recordset.
+    Const adInteger As Long = 3
+    Const adVarChar As Long = 200
+    Const adLockPessimistic As Long = 2
+
+    Dim rs As Object
+    Set rs = CreateObject("ADODB.Recordset")
+
+    rs.Fields.Append "ID", adInteger
+    rs.Fields.Append "Value", adVarChar, 255
+    rs.LockType = adLockPessimistic
+    rs.Open
+
+'   Add the List items to the recordset.
+    Dim val As Variant
+    Dim i As Long
+    For Each val In mBaseCollection
+        i = i + 1
+        rs.AddNew
+        rs!ID.Value = i
+        rs!Value.Value = val
+        rs.Update
+    Next val
+
+    Set ToRecordSet = rs
 End Function
 
 
