@@ -19,3 +19,26 @@ Download the List.cls file and add it to your project.
 ## Licence
 Released under [MIT](/LICENCE) by [Sam Vanderslink](https://github.com/SSlinky).
 Free to modify and reuse.
+
+# Test Results
+
+```txt
+   Pass: TestList_ItemPositiveIndexReturnsItem
+   Pass: TestList_ItemNegativeIndexReturnsItem
+   Pass: TestList_ItemsAsObjectsReturned
+   Pass: TestList_InsertInsertsAtZero
+   Pass: TestList_InsertInsertsMid
+   Pass: TestList_RemoveRemovesItem
+   Pass: TestList_IndexOfReturnsValueIndex
+   Pass: TestList_IndexOfDoesntFindValueIndex
+   Pass: TestList_IndexOfDoesntFindValueNoItems
+   Pass: TestList_IndexOfReturnsObjectIndex
+   Pass: TestList_PushAddsItem
+   Pass: TestList_PopGetsAndRemovesFromQueue
+   Pass: TestList_PopGetsAndRemovesFromStack
+   Pass: TestList_ItemGetsItemsSlice
+-------------------------------------------
+   Passed: 14 (100.00%)
+   Failed: 0 (0.00%)
+-------------------------------------------
+```
