@@ -593,10 +593,10 @@ Attribute TestList_SortListSortsStrings.VB_Description = "Test the sort function
 
 '   Arrange
     Dim items() As Variant
-    items = Array("300", "35", "85", "339", "209")
+    items = Array("300", "35", "85z", "339", "209")
 
     Dim exp() As Variant
-    exp = Array("209", "300", "339", "35", "85")
+    exp = Array("209", "300", "339", "35", "85z")
 
     Dim myList As New List
     myList.Mode = Stack

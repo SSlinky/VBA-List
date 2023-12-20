@@ -12,7 +12,7 @@ List exposes the standard functionality of a [Collection object](https://learn.m
 * IndexOf method to search list.
 * Reference objects by negative index gets from end.
 * Slice list by range of indices.
-* Filter list by predicate (not implemented).
+* Filter list by predicate.
 
 ## Installation
 
@@ -43,10 +43,9 @@ Free to modify and reuse.
    Pass: TestList_FilterFiltersStrings
    Pass: TestList_FilterFiltersNumbers
    Pass: TestList_SortListSortsStrings
-!! Fail: TestList_SortListSortsNumbers
-     Expected 85 but got 339 [4]
+   Pass: TestList_SortListSortsNumbers
 -------------------------------------------
-   Passed: 17 (94.44%)
-   Failed: 1 (5.56%)
+   Passed: 18 (100.00%)
+   Failed: 0 (0.00%)
 -------------------------------------------
 ```

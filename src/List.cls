@@ -252,7 +252,7 @@ Attribute Sort.VB_Description = "Sorts the list in place."
 '       Sort on field Value, e.g., "Value ASC"
 '
     Dim rs As Object
-    Set rs = ToRecordSet(mBaseCollection)
+    Set rs = ToRecordSet(mBaseCollection, AllValuesNumeric(mBaseCollection))
     rs.Sort = sortCriteria
 
     Set mBaseCollection = New Collection
@@ -318,12 +318,34 @@ Attribute GetItemsBySlice.VB_Description = "Returns the items at the slice."
     Set GetItemsBySlice = result
 End Function
 
-Private Function ToRecordSet(coll As Collection) As Object
+Private Function AllValuesNumeric(coll As Collection) As Boolean
+Attribute AllValuesNumeric.VB_Description = "Returns true if all values are numeric."
+'   Returns true if all values are numeric.
+'
+'   Args:
+'       coll: The Collection of values to test.
+'
+'   Returns:
+'       True if all values are numeric.
+'
+    Dim result As Boolean
+    Dim i As Long
+    For i = 1 To coll.Count
+        If Not IsNumeric(coll(i)) Then GoTo Finally
+    Next i
+    result = True
+Finally:
+    AllValuesNumeric = result
+End Function
+
+Private Function ToRecordSet( _
+    coll As Collection, Optional asNumeric As Boolean) As Object
 Attribute ToRecordSet.VB_Description = "Converts the base Collection to a Recordset."
 '   Converts the base Collection to a Recordset.
 '
 '   Args:
 '       coll: The Collection to convert.
+'       asNumeric: Uses numbers for the values.
 '
 '   Returns:
 '       A Recordset.
@@ -331,13 +353,19 @@ Attribute ToRecordSet.VB_Description = "Converts the base Collection to a Record
 '   Set up the ADODB in-memory Recordset.
     Const adInteger As Long = 3
     Const adVarChar As Long = 200
+    Const adVarNumeric As Long = 139
     Const adLockPessimistic As Long = 2
 
     Dim rs As Object
     Set rs = CreateObject("ADODB.Recordset")
 
-    rs.Fields.Append "ID", adInteger
-    rs.Fields.Append "Value", adVarChar, 255
+    rs.Fields.Append _
+        "ID", _
+        adInteger
+    rs.Fields.Append _
+        "Value", _
+        Iif(asNumeric, adVarNumeric, adVarChar), _
+        255
     rs.LockType = adLockPessimistic
     rs.Open
 
