@@ -517,3 +517,71 @@ Finally:
     On Error GoTo 0
     Set TestList_ItemGetsItemsSlice = tr
 End Function
+
+Private Function TestList_FilterFiltersStrings() As TestResult
+Attribute TestList_FilterFiltersStrings.VB_Description = "Test the filter function works on strings."
+'   Test the filter function works on strings.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items() As Variant
+    items = Array("300", "35", "85", "339", "209")
+
+    Dim exp() As Variant
+    exp = Array("300", "35", "339")
+
+    Dim myList As New List
+    myList.Mode = Stack
+
+    Dim val As Variant
+    For Each val In items
+        myList.Push val
+    Next val
+
+'   Act
+    Dim res As List
+    Set res = myList.Filter("Value Like '3*'")
+
+'   Assert
+    Dim i As Long
+    For i = 0 To res.Count - 1
+        If Not tr.AssertAreEqual(res(i), exp(i)) Then GoTo Finally
+    Next i
+
+Finally:
+    Set TestList_FilterFiltersStrings = tr
+End Function
+
+Private Function TestList_FilterFiltersNumbers() As TestResult
+Attribute TestList_FilterFiltersNumbers.VB_Description = "Test the filter function works on numbers."
+'   Test the filter function works on numbers.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items() As Variant
+    items = Array("300", "35", "85", "339", "209")
+
+    Dim exp() As Variant
+    exp = Array("300", "339", "209")
+
+    Dim myList As New List
+    myList.Mode = Stack
+
+    Dim val As Variant
+    For Each val In items
+        myList.Push val
+    Next val
+
+'   Act
+    Dim res As List
+    Set res = myList.Filter("Value > 100")
+
+'   Assert
+    Dim i As Long
+    For i = 0 To res.Count - 1
+        If Not tr.AssertAreEqual(res(i), exp(i)) Then GoTo Finally
+    Next i
+
+Finally:
+    Set TestList_FilterFiltersNumbers = tr
+End Function

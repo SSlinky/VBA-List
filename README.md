@@ -1,4 +1,5 @@
 # VBA-List
+
 List object that extends a Collection
 
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/SSlinky/VBA-List/blob/master/README.md#license)
@@ -14,9 +15,11 @@ List exposes the standard functionality of a [Collection object](https://learn.m
 * Filter list by predicate (not implemented).
 
 ## Installation
+
 Download the List.cls file and add it to your project.
 
 ## Licence
+
 Released under [MIT](/LICENCE) by [Sam Vanderslink](https://github.com/SSlinky).
 Free to modify and reuse.
 
@@ -37,8 +40,10 @@ Free to modify and reuse.
    Pass: TestList_PopGetsAndRemovesFromQueue
    Pass: TestList_PopGetsAndRemovesFromStack
    Pass: TestList_ItemGetsItemsSlice
+   Pass: TestList_FilterFiltersStrings
+   Pass: TestList_FilterFiltersNumbers
 -------------------------------------------
-   Passed: 14 (100.00%)
+   Passed: 16 (100.00%)
    Failed: 0 (0.00%)
 -------------------------------------------
 ```

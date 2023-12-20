@@ -207,6 +207,60 @@ Attribute IndexOf.VB_Description = "Returns the index of the passed in item if i
     End If
 End Function
 
+Public Function Filter(filterCriteria As String) As List
+Attribute Filter.VB_Description = "Returns a new filtered list."
+'   Returns a new filtered list.
+'
+'   Filters the list in the same way that an ADODB.Recordset does.
+'   This filter does not support complex objects due to limited
+'   reflection in VBA. Objects should be implemented separately
+'   so that their properties can be added to the Recordset.
+'
+'   Args:
+'       filterCriteria: The ADODB filter string.
+'       Filter on field Value, e.g., "Value LIKE 'FOO*'"
+'
+'   Returns:
+'       A List with the objects filtered.
+'
+'   Set up the ADODB in-memory Recordset.
+    Const adInteger As Long = 3
+    Const adVarChar As Long = 200
+    Const adLockPessimistic As Long = 2
+
+    Dim rs As Object
+    Set rs = CreateObject("ADODB.Recordset")
+
+    rs.Fields.Append "ID", adInteger
+    rs.Fields.Append "Value", adVarChar, 255
+    rs.LockType = adLockPessimistic
+    rs.Open
+
+'   Add the List items to the recordset and filter it.
+    Dim val As Variant
+    Dim i As Long
+    For Each val In mBaseCollection
+        i = i + 1
+        rs.AddNew
+        rs!ID.Value = i
+        rs!Value.Value = val
+        rs.Update
+    Next val
+
+    rs.Filter = filterCriteria
+
+'   Add the filter results to the new collection
+    Dim result As New List
+    result.Mode = Me.Mode
+
+    Do While Not rs.EOF
+        result.Push rs.Fields!Value.Value
+        rs.MoveNext
+    Loop
+
+    Set Filter = result
+End Function
+
 
 ' Helpers
 '-------------------------------------------------------------------------------
