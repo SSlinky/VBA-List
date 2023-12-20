@@ -483,3 +483,37 @@ Attribute TestList_PopGetsAndRemovesFromStack.VB_Description = "Pop gets the las
 Finally:
     Set TestList_PopGetsAndRemovesFromStack = tr
 End Function
+
+Private Function TestList_ItemGetsItemsSlice() As TestResult
+Attribute TestList_ItemGetsItemsSlice.VB_Description = "Test that a slice returns an List of items."
+'   Test that a slice returns an List of items.
+    Dim tr As New TestResult
+
+'   Arrange
+    Const SLICEL As Long = 3
+    Const SLICEU As Long = 12
+
+    Dim myList As New List
+    myList.Mode = Stack
+
+    Dim i As Long
+    For i = 0 To 24
+        myList.Push(i)
+    Next i
+
+'   Act
+    Dim res As List
+    Set res = myList(SLICEL & ":" & SLICEU)
+
+'   Assert
+    On Error Resume Next
+    Dim j As Long
+    For i = SLICEL To SLICEU
+        If Not tr.AssertAreEqual(res(j), myList(i)) Then GoTo Finally
+        If Not tr.AssertNoException() Then GoTo Finally
+    Next i
+
+Finally:
+    On Error GoTo 0
+    Set TestList_ItemGetsItemsSlice = tr
+End Function

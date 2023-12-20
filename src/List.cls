@@ -28,6 +28,7 @@ Attribute VB_Exposed = False
 ' IN THE SOFTWARE.
 
 Option Explicit
+' TODO: add list slicers to return a list.
 
 '-------------------------------------------------------------------------------
 '   Class: List
@@ -83,24 +84,30 @@ End Sub
 
 ' Methods
 '-------------------------------------------------------------------------------
-Public Function Item(Optional itemIndex As Long) As Variant
+Public Function Item(itemIndex As Variant) As Variant
 Attribute Item.VB_UserMemId = 0
-Attribute Item.VB_Description = "Returns the item at the position."
-'   Returns the item at the position.
+Attribute Item.VB_Description = "Returns an item or slice at the given index."
+'   Returns an item or slice at the given index.
 '
 '   Args:
-'       itemIndex: A zero based item index. Negative index returns from end.
+'       itemIndex: A zero based item index or slice.
+'                  Negative numbers return from end.
+'                  Slices return an array, e.g., 2:7
 '
 '   Returns:
 '       The item at the position
 '
-    Dim i As Long
-    i = GetRealIndex(itemIndex)
-    
-    If IsObject(mBaseCollection(i)) Then
-        Set Item = mBaseCollection(i)
+    If IsNumeric(itemIndex) Then
+        Dim i As Long
+        i = GetRealIndex(CLng(itemIndex))
+        
+        If IsObject(mBaseCollection(i)) Then
+            Set Item = mBaseCollection(i)
+        Else
+            Item = mBaseCollection(i)
+        End If
     Else
-        Item = mBaseCollection(i)
+        Set Item = GetItemsBySlice(CStr(itemIndex))
     End If
 End Function
 
@@ -218,6 +225,41 @@ Attribute GetRealIndex.VB_Description = "Returns the converted item index approp
     Else
         GetRealIndex = itemIndex + 1
     End If
+End Function
+
+Private Function GetItemsBySlice(itemIndex As String) As List
+Attribute GetItemsBySlice.VB_Description = "Returns the items at the slice."
+'   Returns the items at the slice.
+'
+'   Args:
+'       itemIndex: A zero based slice index. Negative index returns from end.
+'
+'   Returns:
+'       The items at the slice range.
+'
+'   Get the beginning and end index for the slice range.
+    Dim indices() As String
+    indices = Split(itemIndex, ":")
+
+    Dim begIndex As Long: begIndex = GetRealIndex(indices(0))
+    Dim endIndex As Long: endIndex = GetRealIndex(indices(1))
+
+    If begIndex > endIndex Then
+        Dim tmpIndex As Long
+        tmpIndex = begIndex
+        begIndex = endIndex
+        endIndex = tmpIndex
+    End If
+
+    Dim result As New List
+    result.Mode = Me.Mode
+
+    Dim i As Long
+    For i = begIndex To endIndex
+        result.Push mBaseCollection(i)
+    Next i
+
+    Set GetItemsBySlice = result
 End Function
 
 

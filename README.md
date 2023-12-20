@@ -10,7 +10,7 @@ List exposes the standard functionality of a [Collection object](https://learn.m
 * Push and Pop in Stack or Queue mode.
 * IndexOf method to search list.
 * Reference objects by negative index gets from end.
-* Slice list by range of indices (not implemented).
+* Slice list by range of indices.
 * Filter list by predicate (not implemented).
 
 ## Installation
