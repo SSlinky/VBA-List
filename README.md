@@ -13,6 +13,7 @@ List exposes the standard functionality of a [Collection object](https://learn.m
 * Reference objects by negative index gets from end.
 * Slice list by range of indices.
 * Filter list by predicate.
+* Sort list.
 
 ## Installation
 
