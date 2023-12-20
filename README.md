@@ -20,7 +20,7 @@ Download the List.cls file and add it to your project.
 Released under [MIT](/LICENCE) by [Sam Vanderslink](https://github.com/SSlinky).
 Free to modify and reuse.
 
-# Test Results
+## Test Results
 
 ```txt
    Pass: TestList_ItemPositiveIndexReturnsItem
