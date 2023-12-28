@@ -24,6 +24,10 @@ Download the List.cls file and add it to your project.
 Released under [MIT](/LICENCE) by [Sam Vanderslink](https://github.com/SSlinky).
 Free to modify and reuse.
 
+## Documentation
+
+[Read the docs](https://sslinky.github.io/VBA-List/#/) for usage and examples.
+
 ## Test Results
 
 ```txt
