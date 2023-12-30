@@ -6,7 +6,7 @@ Adds a item to the List.
 
 _object_.**Push** _Val_
 
-The **Add** method has the following parts:
+The **Filter** method has the following parts:
 
 Part               | Description
 :---               | :---
