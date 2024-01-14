@@ -37,14 +37,8 @@ Private Function ToCustomerRecordSet( _
         "ID", _
         adInteger
 ' ########## Modify this part ##########
-    rs.Fields.Append _
-        "Region", _
-        Iif(asNumeric, adVarNumeric, adVarChar), _
-        255
-    rs.Fields.Append _
-        "TotalSales", _
-        Iif(asNumeric, adVarNumeric, adVarChar), _
-        255
+    rs.Fields.Append "Region", adVarChar, 255
+    rs.Fields.Append "TotalSales", adVarNumeric, 255
 ' #####################################
     rs.LockType = adLockPessimistic
     rs.Open
