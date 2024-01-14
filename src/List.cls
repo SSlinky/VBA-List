@@ -74,6 +74,13 @@ Attribute Count.VB_Description = "Gets the count for the collection."
     Count = mBaseCollection.Count
 End Property
 
+Public Property Get NewEnum() As IUnknown
+Attribute NewEnum.VB_Description = "Enables iteration with a For Each loop."
+Attribute NewEnum.VB_UserMemId = -4
+'   Enables iteration with a For Each loop.
+    Set NewEnum = mBaseCollection.[_NewEnum]
+End Property
+
 
 ' Constructor
 '-------------------------------------------------------------------------------

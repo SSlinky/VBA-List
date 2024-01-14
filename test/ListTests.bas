@@ -651,3 +651,30 @@ Attribute TestList_SortListSortsNumbers.VB_Description = "Test the sort function
 Finally:
     Set TestList_SortListSortsNumbers = tr
 End Function
+
+Private Function TestList_ForEachLoop() As TestResult
+Attribute TestList_ForEachLoop.VB_Description = "For Each returns all items."
+'   For Each returns all items.
+    Dim tr As New TestResult
+
+'   Arrange
+    Dim items() As Variant
+    items = Array(300, 35, 85, 339, 209)
+
+    Dim myList As New List
+
+    Dim val As Variant
+    For Each val In items
+        myList.Push val
+    Next val
+
+'   Act / Assert
+    Dim var, i As Long
+    For Each var In myList
+        If Not tr.AssertAreEqual(var, items(i), CStr(i)) Then GoTo Finally
+        i = i + 1
+    Next var
+
+Finally:
+    Set TestList_ForEachLoop = tr
+End Function

@@ -49,8 +49,9 @@ Free to modify and reuse.
    Pass: TestList_FilterFiltersNumbers
    Pass: TestList_SortListSortsStrings
    Pass: TestList_SortListSortsNumbers
+   Pass: TestList_ForEachLoop
 -------------------------------------------
-   Passed: 18 (100.00%)
+   Passed: 19 (100.00%)
    Failed: 0 (0.00%)
 -------------------------------------------
 ```
