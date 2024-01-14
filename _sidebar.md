@@ -16,4 +16,4 @@
     - [Count](ObjectReference/Properties/Count.md "VBA-List - Properties - Count")
 
   - Examples
-    - [Custom Filter and Sort](ObjectReference/Examples/CustomFilterSort.md "VBA-List - Examples - Custom Filter and Sort")
+    - [Custom Filter and Sort](Examples/CustomFilterSort.md "VBA-List - Examples - Custom Filter and Sort")
