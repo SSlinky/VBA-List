@@ -36,6 +36,7 @@ Private Function ToCustomerRecordSet( _
     rs.Fields.Append _
         "ID", _
         adInteger
+' ########## Modify this part ##########
     rs.Fields.Append _
         "Region", _
         Iif(asNumeric, adVarNumeric, adVarChar), _
@@ -44,6 +45,7 @@ Private Function ToCustomerRecordSet( _
         "TotalSales", _
         Iif(asNumeric, adVarNumeric, adVarChar), _
         255
+' #####################################
     rs.LockType = adLockPessimistic
     rs.Open
 
@@ -56,8 +58,10 @@ Private Function ToCustomerRecordSet( _
         i = i + 1
         rs.AddNew
         rs!ID.Value = i
+' ########## Modify this part ##########
         rs!Region.Value = cust.Region
         rs!TotalSales.Value = cust.TotalSales
+' #####################################
         rs.Update
     Next val
 
@@ -84,9 +88,11 @@ Public Sub SortCustomers(sortCriteria As String)
 '       Sort on field Value, e.g., "Region ASC"
 '
     Dim rs As Object
+' ########## Modify this part ##########
     Set rs = ToCustomerRecordSet( _
         mBaseCollection, _
         AllValuesNumeric(mBaseCollection))
+' #####################################
     rs.Sort = sortCriteria
 
     Set mBaseCollection = New Collection
