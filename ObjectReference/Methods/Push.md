@@ -13,8 +13,6 @@ Part               | Description
 _object_           | Required. An expression representing a **List** object.
 _Val_              | Required. An expression of any type that specifies the item to be added.
 
-Adds an item to the list.
-
 ## Example Usage
 
 Push three items to the list.

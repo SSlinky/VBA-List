@@ -12,7 +12,7 @@ Part               | Description
 :---               | :---
 _object_           | Required. An expression representing a **List** object.
 
-Removes an item from the list. Whether the item is popped from the start or end of the list depends on the [Mode](ObjectReference/Properties/Mode.md "VBA-List - Properties - Mode").
+Whether the item is popped from the start or end of the list depends on the [Mode](ObjectReference/Properties/Mode.md "VBA-List - Properties - Mode").
 
 ## Example Usage
 
@@ -26,4 +26,4 @@ With myList
 End With
 ```
 
-_Note:_ To pop an object, they `Set` keyword is required.
+_Note:_ To pop an object, the `Set` keyword is required.
