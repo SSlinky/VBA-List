@@ -13,13 +13,13 @@ We have a list of `Customer` objects. Corporate have decided, in their wisdom, t
 Copy the existing method and modify it so that it records the `Region` and `TotalSales` properties.
 
 ```vba
-Private Function ToCustomerRecordSet( _
-    coll As Collection, Optional asNumeric As Boolean) As Object
+' ########## Modify this part ##########
+Private Function ToCustomerRecordSet(coll As Collection) As Object
 '   Converts the base Customer Collection to a Recordset.
+' ######################################
 '
 '   Args:
 '       coll: The Collection to convert.
-'       asNumeric: Uses numbers for the values.
 '
 '   Returns:
 '       A Recordset.
@@ -69,8 +69,10 @@ You could implement this any fancy way you wished, but for simplicity, we're jus
 
 ```vba
 
+' ########## Modify this part ##########
 Public Sub SortCustomers(sortCriteria As String)
 '   Sorts the customer list in place.
+' ######################################
 '
 '   Sorts the list in the same way that an ADODB.Recordset does.
 '   This sort does not support complex objects due to limited
@@ -83,9 +85,7 @@ Public Sub SortCustomers(sortCriteria As String)
 '
     Dim rs As Object
 ' ########## Modify this part ##########
-    Set rs = ToCustomerRecordSet( _
-        mBaseCollection, _
-        AllValuesNumeric(mBaseCollection))
+    Set rs = ToCustomerRecordSet(mBaseCollection)
 ' ######################################
     rs.Sort = sortCriteria
 
