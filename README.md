@@ -19,6 +19,8 @@ List exposes the standard functionality of a [Collection object](https://learn.m
 
 Download the List.cls file and add it to your project.
 
+Note: This class depends on a reference to OLE Automation, however, this is referenced by default for new workbooks.
+
 ## Licence
 
 Released under [MIT](/LICENCE) by [Sam Vanderslink](https://github.com/SSlinky).
