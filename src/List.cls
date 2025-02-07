@@ -46,10 +46,6 @@ Public Enum ListMode
 End Enum
 
 
-' Events
-'-------------------------------------------------------------------------------
-
-
 ' Private Backing Store
 '-------------------------------------------------------------------------------
 Private mBaseCollection As Collection
@@ -389,12 +385,3 @@ Attribute ToRecordSet.VB_Description = "Converts the base Collection to a Record
 
     Set ToRecordSet = rs
 End Function
-
-
-' Event Handlers
-'-------------------------------------------------------------------------------
-
-
-' Interface Implementation
-'-------------------------------------------------------------------------------
-
