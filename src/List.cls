@@ -103,7 +103,7 @@ Attribute Item.VB_Description = "Returns an item or slice at the given index."
     If IsNumeric(itemIndex) Then
         Dim i As Long
         i = GetRealIndex(CLng(itemIndex))
-        
+
         If IsObject(mBaseCollection(i)) Then
             Set Item = mBaseCollection(i)
         Else

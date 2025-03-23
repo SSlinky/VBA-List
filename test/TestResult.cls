@@ -70,7 +70,7 @@ Attribute GetRandomBetween.VB_Description = "Returns a random number between two
 '       A random number between a and b.
 '
     GetRandomBetween = Int((b - a + 1) * Rnd + a)
-    
+
 End Function
 
 
@@ -226,7 +226,7 @@ Attribute AssertRaises.VB_Description = "Asserts a specific exception is raised.
         Failed = True
         Message = "Expected exception " & errNo & " raised but none thrown."
     End If
-    
+
     If Err <> errNo Then
         Failed = True
         Message = "Expected exception " & errNo & " raised but got " & Err & "."

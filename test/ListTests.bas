@@ -44,7 +44,7 @@ Attribute RunTests.VB_Description = "Runs all tests."
     Debug.Print "   Passed: " & p & " (" & Format(p / (p + f), "0.00%)")
     Debug.Print "   Failed: " & f & " (" & Format(f / (p + f), "0.00%)")
     Debug.Print "-------------------------------------------"
-    
+
 End Sub
 
 Sub RunSingle()
@@ -98,7 +98,7 @@ Attribute GetTestNames.VB_Description = "Gets the test names from this module."
             results.Add funcName
         End If
     Next i
-    
+
     Set GetTestNames = results
 End Function
 
@@ -365,7 +365,7 @@ Attribute TestList_IndexOfReturnsObjectIndex.VB_Description = "IndexOf finds the
 '   Arrange
     Dim items As Object: Set items = CreateObject("Scripting.Dictionary")
     Dim indices As Object: Set indices = CreateObject("Scripting.Dictionary")
-    
+
     Dim myList As New List
 
 '   Act
@@ -435,7 +435,7 @@ Attribute TestList_PopGetsAndRemovesFromQueue.VB_Description = "Pop gets the fir
 
     Dim myList As New List
     myList.Mode = Queue
-    
+
     Dim val As Variant
     For Each val In items
         myList.Push val
