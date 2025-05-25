@@ -142,7 +142,7 @@ Attribute Pop.VB_Description = "Pops the item from the list."
     Else
         Pop = mBaseCollection(popIndex)
     End If
-    mBaseCollection.Remove(popIndex)
+    mBaseCollection.Remove popIndex
 End Function
 
 Public Sub Insert(val As Variant, itemIndex As Long)
